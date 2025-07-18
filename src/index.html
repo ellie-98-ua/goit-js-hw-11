@@ -9,15 +9,23 @@
   </head>
   <body>
 
-    <form class="form">
+<form class="form">
   <label class="form-label">
     <input class="label-input" type="text" name="search-text" placeholder="Search images..." required>
   </label>
   <button class="submit-button" type="submit">Search</button>
 </form>
 
-    <ul class="gallery"></ul>
+<span class="loader" id="loader"></span>
 
-    <script type="module" src="./main.js"></script>
+  <div class="gallery">
+    <ul class="gallery-list">
+      <a class="gallery-item" href="images/image1.jpg">
+      <img class="gallery-image" src="images/thumbs/thumb1.jpg" alt="" title="" />
+      </a>
+    </ul>
+  </div>
+
+  <script type="module" src="./main.js"></script>
   </body>
 </html>
