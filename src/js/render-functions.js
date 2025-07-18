@@ -28,8 +28,8 @@ function createGalleryMarkup(images) {
 }
 
 // зображення
-export function renderImages(images) {
-  const galleryEl = document.querrySelector('.gallery');
+export function renderGallery(images) {
+  const galleryEl = document.querySelector('.gallery');
   galleryEl.innerHTML = createGalleryMarkup(images);
   lightbox.refresh();
 }
