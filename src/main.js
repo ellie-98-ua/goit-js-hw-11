@@ -1,11 +1,9 @@
-// import fetchData from './js/pixabay-api.js'
-// import moduleName from './js/render-functions.js'
-
-
 import './css/styles.css';
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
+
 import { fetchImages } from './js/pixabay-api';
+import { renderGallery, showLoader, hideLoader } from './js/render-functions';
 
 const form = document.querySelector('.form');
 const gallery = document.querySelector('.gallery');
@@ -23,6 +21,9 @@ form.addEventListener('submit', async e => {
     return;
   }
 
+  gallery.innerHTML = '';
+  showLoader(); // показати лоадер
+
   try {
     const data = await fetchImages(query);
 
@@ -32,45 +33,17 @@ form.addEventListener('submit', async e => {
         message: 'Sorry, there are no images matching your search query. Please try again!',
         position: 'topRight',
       });
-      gallery.innerHTML = '';
       return;
     }
 
-    renderImages(data.hits);
+    renderGallery(data.hits);
   } catch (err) {
     iziToast.error({
       title: 'Error',
       message: 'Something went wrong while fetching data.',
       position: 'topRight',
     });
+  } finally {
+    hideLoader(); // сховати лоадер
   }
 });
-
-
-//зображення
-function createGalleryMarkup(images) {
-  return images.map(image => {
-    return `
-      <li class="gallery-item">
-        <a href="${image.largeImageURL}">
-          <img src="${image.webformatURL}" alt="${image.tags}" loading="lazy" />
-        </a>
-        <div class="info">
-          <p><b>Likes:</b> ${image.likes}</p>
-          <p><b>Views:</b> ${image.views}</p>
-          <p><b>Comments:</b> ${image.comments}</p>
-          <p><b>Downloads:</b> ${image.downloads}</p>
-        </div>
-      </li>
-    `;
-  }).join('');
-}
-
-// очистка та рендер
-
-function renderImages(images) {
-  const markup = createGalleryMarkup(images);
-  galleryEl.innerHTML = markup;
-}
-
-
