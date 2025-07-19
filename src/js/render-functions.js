@@ -12,17 +12,29 @@ function createGalleryMarkup(images) {
   return images
     .map(image => {
     return `
-      <li class="gallery-item">
-        <a href="${image.largeImageURL}">
-          <img src="${image.webformatURL}" alt="${image.tags}" loading="lazy" />
+    <li class="gallery-item">
+        <a class="gallery-item-photo" href="${image.largeImageURL}">
+        <img class="gallery-img" src="${image.webformatURL}" alt="${image.tags}" loading="lazy" />
         </a>
         <div class="info">
-          <p><b>Likes:</b> ${image.likes}</p>
-          <p><b>Views:</b> ${image.views}</p>
-          <p><b>Comments:</b> ${image.comments}</p>
-          <p><b>Downloads:</b> ${image.downloads}</p>
+            <div class="info-part">
+                <h3 class="info-description">Likes</h3>
+                <p class="info-number">${image.likes}</p>
+            </div>
+            <div class="info-part">
+                <h3 class="info-description">Views</h3>
+                <p class="info-number">${image.views}</p>
         </div>
-      </li>
+            <div class="info-part">
+                <h3 class="info-description">Comments</h3>
+                <p class="info-number">${image.comments}</p>
+        </div>
+            <div class="info-part">
+                <h3 class="info-description">Downloads</h3>
+                <p class="info-number">${image.downloads}</p>
+        </div>
+        </div>
+    </li>
     `;
   }).join('');
 }
@@ -32,6 +44,12 @@ export function renderGallery(images) {
   const galleryEl = document.querySelector('.gallery');
   galleryEl.innerHTML = createGalleryMarkup(images);
   lightbox.refresh();
+}
+
+// очищення галереї
+export function clearGallery() {
+  const galleryEl = document.querySelector('.gallery');
+  galleryEl.innerHTML = '';
 }
 
 //loader

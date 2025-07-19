@@ -3,7 +3,7 @@ import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
 
 import { fetchImages } from './js/pixabay-api';
-import { renderGallery, showLoader, hideLoader } from './js/render-functions';
+import { renderGallery, clearGallery, showLoader, hideLoader } from './js/render-functions';
 
 const form = document.querySelector('.form');
 const gallery = document.querySelector('.gallery');
@@ -21,7 +21,7 @@ form.addEventListener('submit', async e => {
     return;
   }
 
-  gallery.innerHTML = '';
+  clearGallery();
   showLoader(); // показати лоадер
 
   try {
